@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPLORE-Bench: Egocentric Scene Prediction with Long-Horizon Reasoning</title>
+    
+    <!-- 字体和图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- 样式表 -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- 数学公式支持 -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🔍</span>
+                <span class="logo-text">EXPLORE-Bench</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#overview" class="nav-link">Overview</a>
+                <a href="#annotation" class="nav-link">Annotation</a>
+                <a href="#evaluation" class="nav-link">Evaluation</a>
+                <a href="#experiments" class="nav-link">Experiments</a>
+                <a href="#cases" class="nav-link">Cases</a>
+                <a href="#citation" class="nav-link">Citation</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link">More <i class="fas fa-chevron-down" style="font-size: 0.7em; margin-left: 4px;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="https://jackyu6.github.io/HERO/" target="_blank">HERO</a>
+                        <a href="https://yyvhang.github.io/EgoChoir/" target="_blank">EgoChoir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero区域 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-icon">🎯</span>
+                EXPLORE-Bench
+            </h1>
+            <h2 class="hero-subtitle">Egocentric Scene Prediction with Long-Horizon Reasoning</h2>
+
+            <!-- 会议标识 -->
+            <!-- <div class="conference-badge"></div> -->
+
+            <!-- 作者信息 -->
+            <div class="authors">
+                <div class="author-list">
+                    <span class="author"><a href="https://scholar.google.com/citations?hl=zh-CN&user=aqPacIQAAAAJ">Chengjun Yu</a><sup>1</sup></span>
+                    <span class="author"><a href="https://scholar.google.com/citations?user=GWkm_NIAAAAJ&hl=zh-CN">Xuhan Zhu</a><sup>2,3</sup></span>
+                    <span class="author"><a href="https://scholar.google.com/citations?view_op=list_works&hl=zh-CN&user=iCKF4OcAAAAJ&gmla=AF9nlQt9HVvyhAkWAhsFZ4CK26b4elPZBUpdj4ZL6NsiKwQRpFbSQY_Co7dEY0Nj4eTExtJM7txBGh1S_IiTlvJumL7eNVlcpc6nMoBhCl405qDY">Chaoqun Du</a><sup>2</sup></span>
+                    <span class="author"><a href="https://plastic0313.github.io/">Pengfei Yu</a><sup>2</sup></span>
+                    <span class="author"><a href="https://tiaotiao11-22.github.io/wzhai/">Wei Zhai</a><sup>1</sup></span>
+                    <span class="author"><a href="https://scholar.google.com/citations?user=K7rTHNcAAAAJ&hl=en&oi=ao">Yang Cao</a><sup>1</sup></span>
+                    <span class="author"><a href="https://scholar.google.com/citations?hl=zh-CN&user=gDnBC1gAAAAJ">Zheng-Jun Zha</a><sup>1</sup></span>
+                </div>
+                <div class="affiliations">
+                    <div class="affiliation">
+                        <!-- <sup>1</sup>MoE Key Laboratory of Brain-inspired Intelligent Perception and Cognition, University of Science and Technology of China -->
+                        <sup>1</sup>University of Science and Technology of China
+                    </div>
+                    <div class="affiliation">
+                        <sup>2</sup>Foundation Model Team, Li Auto Inc.
+                    </div>
+                    <div class="affiliation">
+                        <sup>3</sup>Tsinghua University
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 链接按钮 -->
+            <div class="hero-links">
+                <a href="#" class="btn btn-primary">
+                    <i class="fas fa-file-pdf"></i> Paper
+                </a>
+                <a href="https://github.com/JackYu6/EXPLORE-Bench" class="btn btn-secondary">
+                    <i class="fab fa-github"></i> Code
+                </a>
+                <a href="https://huggingface.co/datasets/JackYu6/EXPLORE-Dataset" class="btn btn-tertiary">
+                    <i class="fas fa-database"></i> Dataset
+                </a>
+            </div>
+            
+            <!-- 摘要 -->
+            <div class="abstract">
+                <h3>Abstract</h3>
+                <p>
+                    Multimodal large language models (MLLMs) are increasingly considered as a foundation for embodied agents, yet it remains unclear whether they can reliably reason about the long-term physical consequences of actions from an egocentric viewpoint. We study this gap through a new task, <strong>E</strong>gocentric <strong>S</strong>cene <strong>P</strong>rediction with <strong>LO</strong>ng-horizon <strong>RE</strong>asoning: given an initial-scene image and a sequence of atomic action descriptions, a model is asked to predict the final scene after all actions are executed.
+                    To enable systematic evaluation, we introduce <strong>EXPLORE-Bench</strong>, a benchmark curated from real first-person videos spanning diverse scenarios. Each instance pairs long action sequences with structured final-scene annotations, including object categories, visual attributes, and inter-object relations, which supports fine-grained, quantitative assessment.
+                    Experiments on a range of proprietary and open-source MLLMs reveal a significant performance gap to humans, indicating that long-horizon egocentric reasoning remains a major challenge. We further analyze test-time scaling via stepwise reasoning and show that decomposing long action sequences can improve performance to some extent, while incurring non-trivial computational overhead. Overall, EXPLORE-Bench provides a principled testbed for measuring and advancing long-horizon reasoning for egocentric embodied perception.
+                </p>
+            </div>
+            
+            <!-- 图片 -->
+            <div class="teaser-image">
+                <img src="images/teaser.jpg" alt="EXPLORE-Bench Overview" id="teaserImg">
+                <p class="figure-caption"><strong>Overview of EXPLORE-Bench.</strong> EXPLORE-Bench evaluates MLLMs on a new task: egocentric scene prediction with long-horizon reasoning. We annotate the final scene at the object, attribute, and relation levels to enable fine-grained scene-level evaluation. Note that the prompt is abbreviated for brevity in this figure.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主要内容区 -->
+    <main class="main-content">
+        
+        <!-- 概述部分 -->
+        <section id="overview" class="section">
+            <div class="section-header">
+                <h2>Overview</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="overview-content">
+                <div class="overview-text">
+                    <h3>Motivation</h3>
+                    <p>
+                        While several existing egocentric benchmarks include evaluations related to state prediction, they typically focus on instant (or short-term) and localized state changes (e.g., the state of a single object after a visual cue) and do not provide a systematic protocol to evaluate scene-level predictions under long action horizons.
+                        Therefore, we design a scalable annotation pipeline and build a new benchmark that enables fine-grained and quantitative evaluation of long-horizon egocentric scene prediction.
+                    </p>
+                    
+                    <h3>Key Features</h3>
+                    <ul class="features-list">
+                        <li><strong>Long Action Horizons:</strong> 113 atomic actions on average</li>
+                        <li><strong>Fine-grained Evaluation:</strong> Objects, attributes, and relations</li>
+                        <li><strong>Numerous Objects:</strong> 20000+ object instances</li>
+                        <li><strong>Diverse Scenarios:</strong> 12+ real-world scenarios</li>
+                    </ul>
+                </div>
+                
+                <div class="overview-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-number" id="instances">0</div>
+                        <div class="stat-label">instances</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚙️</div>
+                        <div class="stat-number" id="actions">0</div>
+                        <div class="stat-label">atomic actions on average</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-number" id="objects">0</div>
+                        <div class="stat-label">objects on average</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎬</div>
+                        <div class="stat-number" id="scenarios">0</div>
+                        <div class="stat-label">scenarios</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 场景标注部分 -->
+        <section id="annotation" class="section">
+            <div class="section-header">
+                <h2>Scene Annotation Pipeline</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="annotation-diagram">
+                <img src="images/anno_pipeline.jpg" alt="Annotation Pipeline Diagram" id="annotationDiagram">
+                <p class="figure-caption"><strong>Scene annotation pipeline.</strong> Rather than having the MLLM generate annotations directly from the images, we adopt a multi-step pipeline to ensure object coverage and the accuracy of attributes and relations, greatly reducing the load of manual annotation required.</p>
+            </div>
+        </section>
+
+        <!-- 评估结果部分 -->
+        <section id="evaluation" class="section">
+            <div class="section-header">
+                <h2>Evaluation Results</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="evaluation-content">
+                <div class="evaluation-diagram">
+                    <img src="images/main_eval_res.png" alt="Main Evaluation Results" id="evaluationImg">
+                    <p class="figure-caption"><strong>Evaluation results on EXPLORE-Bench.</strong> Short, Medium and Long mean the subsets with short, medium and long atomic-action sequences, respectively. Full denotes the full dataset. Dark green and light green indicate the best and the second best result among all models. Orange denotes using Qwen2-VL-7B-Instruct as the base model. ✝ denotes results on EXPLORE-Bench (tiny) set. # and * represent the non-thinking and thinking mode, respectively.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 实验分析部分 -->
+        <section id="experiments" class="section">
+            <div class="section-header">
+                <h2>Experiments</h2>
+                <p>
+                    To study how well stepwise reasoning works in the non-thinking model, we first segment the atomic action sequence in two ways: (1) by a fixed number of segments, and (2) by a fixed window size. 
+                    We then evaluate the performance of Qwen3-VL-8B-Instruct across subsets under two inference strategies: (1) single-turn inference with stepwise reasoning, and (2) multi-turn inference with stepwise reasoning. The results are shown in the figures below.
+                    Short, Medium, and Long denote the subsets with short, medium, and long atomic-action sequences. Full denotes the full dataset.
+                    Note that the two dashed lines corresponding to "Default Setting: Medium" and "Default Setting: Full" overlap.
+                </p>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="experiments-container">
+                <div class="experiments-row">
+                    <div class="experiment-figure">
+                        <img src="images/score_vs_segments.png" alt="Score vs Segments">
+                        <p class="figure-caption">Unified score vs. number of segments</p>
+                    </div>
+                    <div class="experiment-figure">
+                        <img src="images/score_vs_window_size.png" alt="Score vs Window Size">
+                        <p class="figure-caption">Unified score vs. window size</p>
+                    </div>
+                </div>
+
+                <div class="experiments-row">
+                    <div class="experiment-figure">
+                        <img src="images/inference_length_segs.png" alt="Inference Length Segments">
+                        <p class="figure-caption">Description length vs. number of segments</p>
+                    </div>
+                    <div class="experiment-figure">
+                        <img src="images/inference_length_wins.png" alt="Inference Length Windows">
+                        <p class="figure-caption">Description length vs. window size</p>
+                    </div>
+                </div>
+
+                <div class="experiments-row">
+                    <div class="experiment-figure">
+                        <img src="images/inference_time_segs.png" alt="Inference Time Segments">
+                        <p class="figure-caption">Inference time vs. number of segments</p>
+                    </div>
+                    <div class="experiment-figure">
+                        <img src="images/inference_time_wins.png" alt="Inference Time Windows">
+                        <p class="figure-caption">Inference time vs. window size</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 案例展示部分 -->
+        <section id="cases" class="section">
+            <div class="section-header">
+                <h2>Case Studies</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="cases-container">
+                <div class="carousel">
+                    <button class="carousel-btn carousel-prev" aria-label="Previous">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <div class="carousel-track-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide">
+                                <img src="images/case_1v2.jpg" alt="Case Study 1v2">
+                                <p class="figure-caption"><strong>Case 1 (1).</strong> "C" refers to the camera wearer. Although both models recognize the changes, neither accurately describes the key state. Instead, they generate descriptions that violate physical commonsense.</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/case_1v3.jpg" alt="Case Study 1v3">
+                                <p class="figure-caption"><strong>Case 1 (2).</strong> The scene in this case is the same as in the previous figure, but we show predictions from different models, demonstrating their consistent failures in this case. Notably, Qwen3-VL-8B-Instruct and Keye-VL-1.5-8B cannot even realize that the bottle pyramid changes.</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/case_2v1.jpg" alt="Case Study 2v1">
+                                <p class="figure-caption"><strong>Case 2 (1).</strong> Qwen3-VL-8B-Instruct describes more objects than Keye-VL-1.5-8B in the scene, but it fails to mention that the refrigerator door is still open, whereas Keye-VL-1.5-8B notices this. In addition, both models claim that the faucet is turned off, which is inconsistent with the actual scene.</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/case_2v2.jpg" alt="Case Study 2v2">
+                                <p class="figure-caption"><strong>Case 2 (2).</strong> Both Gemini-3-Pro and GPT-5.2-Chat describe the key states in this scene, demonstrating their relative advantage in detecting safety hazards.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="carousel-btn carousel-next" aria-label="Next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <div class="carousel-indicators">
+                    <button class="indicator active" data-slide="0"></button>
+                    <button class="indicator" data-slide="1"></button>
+                    <button class="indicator" data-slide="2"></button>
+                    <button class="indicator" data-slide="3"></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 引用格式部分 -->
+        <section id="citation" class="section">
+            <div class="section-header">
+                <h2>Citation</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="citation-centered">
+                <div class="citation-box">
+                    <h3>BibTeX</h3>
+                    <pre><code class="language-bibtex">@article{yourname2026explorebench,
+  author    = {Author One and Author Two and Author Three and Author Four and Author Five},
+  title     = {EXPLORE-Bench: Egocentric Scene Prediction with Long-Horizon Reasoning},
+  journal   = {arXiv preprint arXiv:XXXX.XXXXX},
+  year      = {2026},
+  url       = {https://arxiv.org/abs/XXXX.XXXXX}
+}</code></pre>
+                    <button class="btn btn-copy" id="copyBibtex">
+                        <i class="fas fa-copy"></i> Copy BibTeX
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>EXPLORE-Bench</h4>
+                <p>Egocentric Scene Prediction with Long-Horizon Reasoning</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Links</h4>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#annotation">Annotation</a></li>
+                    <li><a href="#evaluation">Evaluation</a></li>
+                    <li><a href="#experiments">Experiments</a></li>
+                    <li><a href="#cases">Cases</a></li>
+                    <li><a href="#citation">Citation</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Paper</a></li>
+                    <li><a href="https://github.com/JackYu6/EXPLORE-Bench">Code</a></li>
+                    <li><a href="https://huggingface.co/datasets/JackYu6/EXPLORE-Dataset">Dataset</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 EXPLORE-Bench. All rights reserved.</p>
+            <p>Website template based on <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a></p>
+        </div>
+    </footer>
+
+    <!-- 图片放大模态框 -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+
+    <!-- JavaScript文件 -->
+    <script src="js/main.js"></script>
+    
+    <!-- 额外的图表库（可选） -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
